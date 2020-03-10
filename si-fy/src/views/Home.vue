@@ -13,11 +13,27 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Footer from "../components/Footer.vue";
 import Sidebar from "../components/Sidebar.vue";
 import HomeCard from "../components/HomeCard.vue";
+//import Api from '../service/api'
+
 export default {
+  mounted() {
+    // Exemplo de chamada a api
+    // const api = new Api();
+    
+    // api.getToken(localStorage.refresh_token).then(response => {
+    //   api.search(response.data.access_token).get('/browse/categories')
+    //     .then(response1 => {
+    //       console.log(response1.data);
+    //     }).catch((error) => {
+    //       console.log(error.response)
+    //     })
+    //   }).catch((error) => {
+    //     console.log(error.response);
+    // });
+  },
   name: "Home",
   components: {
     Sidebar,
