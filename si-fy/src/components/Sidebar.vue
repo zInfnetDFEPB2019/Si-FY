@@ -25,7 +25,7 @@
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>{{ item.text }}</v-list-item-title>
+        <v-list-item-title @click="showPlaylist">{{ item.text }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -45,7 +45,11 @@ export default {
       ]
     };
   },
-  methods: {}
+  methods: {
+    showPlaylist() {
+    this.$router.push({name : "playlist"})
+    }
+  }
 };
 </script>
 
