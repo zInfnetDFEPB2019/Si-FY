@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <v-footer app dark max-height="100px" color="#404040" padless>
+    <v-footer app dark max-height="80px" color="#404040" padless>
       <v-row no-gutters>
         <v-col cols="4" align="start">
           <v-card
@@ -11,16 +11,16 @@
             max-height="80px"
             outlined
           >
-            <v-list-item>
-              <v-list-item-avatar tile size="60" color="#404040">
+            <v-list-item class="author">
+              <v-list-item-avatar tile size="60" color="#404040" class="photo-author">
                 <v-img
                   src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
                 ></v-img>
               </v-list-item-avatar>
-              <v-list-item-content>
+              <v-list-item-content class="author">
                 <v-list-item-subtitle class="text-justify">
                   <p class="text-justify grey--text text--lighten-3">
-                    <strong>Nome mus ica</strong>
+                    <strong>Nome musica</strong>
                   </p>
                 </v-list-item-subtitle>
                 <v-list-item-subtitle class="grey--text text--lighten-3"
@@ -35,7 +35,7 @@
             </v-list-item>
           </v-card>
         </v-col>
-        <v-col cols="4" align="center">
+        <v-col cols="5" align="center">
           <v-card
             color="#404040"
             class="mx-3 my-2"
@@ -45,8 +45,8 @@
             outlined
           >
             <v-row>
-              <v-list-item max-height="10px">
-                <v-list-item-content v-for="icon in player_icons" :key="icon">
+              <v-list-item class="player">
+                <v-list-item-content v-for="icon in player_icons" :key="icon" class="icons">
                   <v-icon
                     v-on:click="play_pause_song"
                     class="grey--text text--lighten-3"
@@ -71,18 +71,18 @@
             </v-row>
           </v-card>
         </v-col>
-        <v-col cols="4" align="center">
+        <v-col cols="3" align="center">
           <v-card
             color="#404040"
             class="mx-3 my-2"
             min-width="150px"
             max-height="80px"
-            max-width="160"
+            max-width="180"
             outlined
           >
             <v-list-item>
               <v-list-item-content>
-                <v-slider track-color="grey" always-dirty min="0" max="100">
+                <v-slider track-color="grey" always-dirty min="0" max="100" class="volume">
                   <template v-slot:prepend>
                     <v-icon
                       v-for="icon in mixer_icons"
@@ -132,4 +132,23 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.player{
+  min-height:0px; 
+  margin-top: 5px
+}
+.author{
+  min-height:0px;     
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.photo-author{
+  margin: 0;
+}
+.icons{
+  padding:0;
+}
+.volume{
+  margin-right: 20px;
+}
+</style>
