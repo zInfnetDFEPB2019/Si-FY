@@ -11,7 +11,7 @@
       <div class="items-container">
         <v-layout align-content-start class="layout-item-container">
           <div v-for="tracks in playlist.items" :key="tracks.id" v-on:click="sendTracks(tracks.id)">
-            <HomeCard :title= tracks.name :image= tracks.images[0].url />
+            <Card :title= tracks.name :image= tracks.images[0].url />
           </div>
         </v-layout>
       </div>
@@ -24,7 +24,7 @@
 <script>
 import Footer from "../components/Footer.vue";
 import Sidebar from "../components/Sidebar.vue";
-import HomeCard from "../components/HomeCard.vue";
+import Card from "../components/Card.vue";
 import Api from '../service/api';
 
 export default {
@@ -32,7 +32,7 @@ export default {
   components: {
     Sidebar,
     Footer,
-    HomeCard
+    Card
   },
   data() {
     return {

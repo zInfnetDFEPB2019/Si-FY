@@ -6,7 +6,7 @@
       <v-row>
         <v-col cols="3" v-for="playlist in playlists" :key="playlist.id">
           <div v-on:click="playMusic(playlist.track)">
-            <HomeCard :title= playlist.track.name :image= playlist.track.album.images[0].url />
+            <Card :title= playlist.track.name :image= playlist.track.album.images[0].url />
           </div>
         </v-col>
       </v-row>
@@ -20,7 +20,7 @@
 <script>
 import Footer from "../components/Footer.vue";
 import Sidebar from "../components/Sidebar.vue";
-import HomeCard from "../components/HomeCard.vue";
+import Card from "../components/Card.vue";
 import Api from '../service/api'
 import {mapGetters} from 'vuex';
 import {mapActions} from 'vuex';
@@ -30,7 +30,7 @@ export default {
   components: {
     Sidebar,
     Footer,
-    HomeCard
+    Card
   },
   data() {
     return {

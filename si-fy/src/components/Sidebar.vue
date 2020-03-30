@@ -22,10 +22,8 @@
 
     <v-list nav dense>
       <v-list-item link v-for="item in list_items" :key="item">
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>{{ item.text }}</v-list-item-title>
+        <router-link :to="item.to"><v-list-item-title><v-icon>{{ item.icon }}</v-icon>{{ item.text }}</v-list-item-title>
+        </router-link>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -36,11 +34,12 @@ export default {
   data() {
     return {
       list_items: [
-        { icon: "music_note", text: "Songs" },
-        { icon: "music_note", text: "Playlists" },
-        { icon: "music_note", text: "Artists" },
-        { icon: "music_note", text: "Albums" },
-        { icon: "music_note", text: "Podcasts" },
+        { icon: "music_note", text: "Home", to:"/" },
+        { icon: "music_note", text: "Songs", to: "/songsprofile" },
+        { icon: "music_note", text: "Playlists", to: "/playlistprofile" },
+        { icon: "music_note", text: "Artists", to: "/artistsprofile" },
+        { icon: "music_note", text: "Albums", to: "/albumsprofile" },
+        { icon: "music_note", text: "Podcasts", to: "/podcastprofile" },
         { icon: "logout", text: "Logout" }
       ]
     };
