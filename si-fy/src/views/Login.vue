@@ -10,7 +10,7 @@ export default {
   name: "Login",
   methods: {
       login: function() {
-        const scopes = 'user-read-private user-read-email';
+        const scopes = 'streaming user-modify-playback-state user-read-private user-read-email';
         const client_id = 'd935470596ca42b780f901044ec5d075';
         const redirect_uri = 'http://localhost:8080/callback';
         
