@@ -16,18 +16,18 @@ export default {
       
       api.login(code).then(response => {
           localStorage.refresh_token = response.data.refresh_token;
+          this.$router.push('/');
         }).catch(() => {
           this.msg = 'Erro ao fazer requisição';
+          this.$router.push('/login');
         });
-        
-    this.$router.push('/');
     }
   },
 
-  name: "Login",
+  name: "Callback",
   data() {
     return {
-      msg: 'carregando'
+      msg: 'Redirecionando'
     }
   }
 };

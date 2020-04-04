@@ -29,7 +29,7 @@
               </v-list-item-content>
               <v-icon
                 color="grey lighten-2"
-                v-on:click="add_song_to_favorite"
+                v-on:click="addTrackToFavorite"
                 >{{ add_icon }}</v-icon
               >
             </v-list-item>
@@ -113,32 +113,55 @@ export default {
       trackDuration: 1,
       trackPositionView: "00:00",
       trackDurationView: "00:00",
-      trackVolume: "100"
+      trackVolume: ""
     };
   },
   mounted() {
+    if (localStorage.refresh_token == null 
+        || localStorage.refresh_token == undefined
+        || localStorage.refresh_token == '') this.$router.push('/login');
+        
     if (this.player == '') this.getToken();
+    this.getVolume();
   },
   updated() {
     this.statusTrack();
-    this.setVolume();
+    this.setVolume(this.trackVolume / 100);
+    this.verifyFavoriteTrack();
   },
   computed: {
     ...mapGetters([
         'player',
         'play',
-        'track'
+        'track',
+        'trackList'
     ]),
   },
   methods: {
     ...mapActions([
       'addPlayer',
-      'setPlay'
+      'setPlay',
+      'setVolume',
+      'pushTrackList',
+      'removeTrackList'
     ]), 
     
-    add_song_to_favorite() {
-      if (this.add_icon == "add") this.add_icon = "check";
-      else this.add_icon = "add";
+    verifyFavoriteTrack() {
+      if (this.trackList.includes(this.track)) {
+        this.add_icon = "check";
+      } else {
+        this.add_icon = "add";
+      }
+    },
+
+    addTrackToFavorite() {
+      if (this.add_icon == "add") {
+        this.pushTrackList(this.track);
+        this.add_icon = "check";
+      } else {
+        this.removeTrackList(this.track);
+        this.add_icon = "add";
+      }
     },
     
     playPauseSong() { 
@@ -160,6 +183,14 @@ export default {
           this.setPlay("stop");
         });
       });
+    },
+
+    getVolume() {
+      if (this.player !== '') {
+        this.player.getVolume().then(volume => {
+          this.trackVolume = volume * 100;
+        });  
+      } else this.trackVolume = '100';
     },
     
     getToken() {
@@ -208,11 +239,6 @@ export default {
     valueTwoHouses(value) {
       return value < 10 ? `0${value}` : value;
     },
-
-    setVolume() {
-      this.player.setVolume(this.trackVolume / 100).then(() => {
-      });
-    }
   }
 };
 </script>

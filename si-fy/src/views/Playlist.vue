@@ -2,7 +2,8 @@
   <div id="container">
     <Sidebar />
 
-    <div id="items-container" class="items-container">
+    <div class="itemsContainer">
+      <h1 v-if="playlists.length == 0" class="divTitle headline grey--text text--lighten-2">Carregando</h1>
       <v-row>
         <v-col cols="3" v-for="playlist in playlists" :key="playlist.id">
           <div v-on:click="sendTracks(playlist.id)">
@@ -97,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.items-container {
+.itemsContainer {
   margin-left: 250px;
 }
 </style>

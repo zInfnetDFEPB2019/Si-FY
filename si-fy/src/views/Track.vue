@@ -2,9 +2,10 @@
   <div id="container">
     <Sidebar />
 
-    <div id="items-container" class="items-container">
+    <div class="itemsContainer">
+      <h1 v-if="tracks.length == 0" class="divTitle headline grey--text text--lighten-2">Carregando</h1>
       <v-row>
-        <v-col cols="3" v-for="playlist in playlists" :key="playlist.id">
+        <v-col cols="3" v-for="playlist in tracks" :key="playlist.id">
           <div v-on:click="playMusic(playlist.track)">
             <Card :title= playlist.track.name :image= playlist.track.album.images[0].url />
           </div>
@@ -34,7 +35,7 @@ export default {
   },
   data() {
     return {
-      playlists: [],
+      tracks: [],
       errorMessage: '',
       playerState: '',
       api: new Api(),
@@ -80,9 +81,9 @@ export default {
             this.isLoadingMore = false;
             this.scrolledToBottom = true; 
             if ( categorie.data.tracks.items instanceof Array )
-              this.playlists = this.playlists.concat( categorie.data.tracks.items );
+              this.tracks = this.tracks.concat( categorie.data.tracks.items );
             else
-              this.playlists.push( categorie.data.tracks.items );
+              this.tracks.push( categorie.data.tracks.items );
         }).catch(() => {
           this.isLoadingMore = false;
         })
@@ -130,7 +131,7 @@ export default {
 </script>
 
 <style scoped>
-.items-container {
+.itemsContainer {
   margin-left: 250px;
 }
 </style>
