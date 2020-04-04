@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <v-btn text small red v-on:click='login'>logar</v-btn>
+    <v-btn class="btnLogin" text v-on:click='login'>logar</v-btn>
   </div>
 </template>
 
@@ -25,4 +25,16 @@ export default {
 </script>
 
 <style scoped>
+#container{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.btnLogin{
+  background-color: #248E35;
+  height: 350px;
+  width: 400px;
+}
 </style>

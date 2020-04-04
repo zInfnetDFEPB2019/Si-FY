@@ -2,14 +2,19 @@
   <div id="container">
     <Sidebar />
     
-    <div v-for="playlist in playlists" :key="playlist.id">
-      <h1 class="headline grey--text text--lighten-2 categorieTitle">{{playlist.name}}</h1>
-      <router-link size="sm" class="mr-1 btn btn-link categorieBtn" 
-        :to="{ name: 'Playlist', params: { id: playlist.id }}"
-        > Ver mais </router-link>
+    <h1 v-if="playlists.length == 0" class="divTitle headline grey--text text--lighten-2">Carregando</h1>
 
-      <div class="items-container">
-        <v-layout align-content-start class="layout-item-container">
+    <div v-for="playlist in playlists" :key="playlist.id">
+      <div class="divTitle">
+        <h1 class="headline grey--text text--lighten-2">{{playlist.name}}</h1>
+        <router-link size="sm" class="mr-1 btn btn-link categorieBtn" 
+          :to="{ name: 'Playlist', params: { id: playlist.id }}"
+        > Ver mais 
+        </router-link>
+      </div>
+
+      <div class="itemsContainer customizedScrollbar">
+        <v-layout align-content-start class="layoutItemContainer">
           <div v-for="tracks in playlist.items" :key="tracks.id" v-on:click="sendTracks(tracks.id)">
             <Card :title= tracks.name :image= tracks.images[0].url />
           </div>
@@ -44,9 +49,6 @@ export default {
     }
   },
   mounted() {
-    if (localStorage.refresh_token == null 
-        || localStorage.refresh_token == undefined) this.$router.push('/login');
-        
     this.getToken();
     this.scrollY();
   },
@@ -116,22 +118,31 @@ export default {
 </script>
 
 <style scoped>
-.categorieTitle {
+.divTitle {
   margin-top: 20px;
   margin-left: 220px;
+  display: flex;
 }
 .categorieBtn {
-  margin-left: 350px;
+  margin-left: 16px;
+  padding-top: 4px;
 }
-.items-container {
+.itemsContainer {
   margin-left: 190px; 
   display:-webkit-flex;
   overflow-y: scroll;
+  overflow-y: hidden;
 }
-::-webkit-scrollbar { 
-    display: none; 
+.customizedScrollbar::-webkit-scrollbar { 
+    width: 5px;
+    height: 8px;
+    overflow: auto;
+    background-color: #aaa;
 }
-.layout-item-container {
+.customizedScrollbar::-webkit-scrollbar-thumb {
+    background: #000; 
+}
+.layoutItemContainer {
   margin-left: 16px;
 }
 </style>

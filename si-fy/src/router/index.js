@@ -2,14 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import Logout from "../views/Logout.vue";
 import Callback from "../views/Callback.vue";
 import Playlist from "../views/Playlist.vue";
 import Track from "../views/Track.vue";
-import AlbumsProfile from "../views/AlbumsProfile.vue";
-import ArtistsProfile from "../views/ArtistsProfile.vue";
-import PodcastProfile from "../views/PodcastProfile.vue";
 import SongsProfile from "../views/SongsProfile.vue";
-import PlaylistProfile from "../views/PlaylistProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -23,6 +20,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout,
   },
   {
     path: "/callback",
@@ -40,29 +42,9 @@ const routes = [
     component: Track
   },
   {
-    path: "/albumsprofile",
-    name: "AlbumsProfile",
-    component: AlbumsProfile
-  },
-  {
-    path: "/artistsprofile",
-    name: "ArtistsProfile",
-    component: ArtistsProfile
-  },
-  {
-    path: "/podcastprofile",
-    name: "PodcastProfile",
-    component: PodcastProfile
-  },
-  {
     path: "/songsprofile",
     name: "SongsProfile",
     component: SongsProfile
-  },
-  {
-    path: "/playlistprofile",
-    name: "PlaylistProfile",
-    component: PlaylistProfile
   },
 ];
 
