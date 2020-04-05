@@ -1,14 +1,14 @@
 <template>
   <div id="container">
     <Sidebar />
-   
-   <div class="itemsContainer">
-     <h1 v-if="trackList.length == 0">No Saved Songs</h1>
-     <h1 v-else>Saved Songs</h1>
+
+    <div class="itemsContainer">
+      <h1 v-if="trackList.length == 0">No Saved Songs</h1>
+      <h1 v-else>Saved Songs</h1>
       <v-row>
         <v-col cols="3" v-for="track in trackList" :key="track.id">
           <div v-on:click="playMusic(track)">
-            <Card :title= track.name :image= track.album.images[0].url />
+            <Card :title="track.name" :image="track.album.images[0].url" />
           </div>
         </v-col>
       </v-row>
@@ -23,8 +23,8 @@
 import Footer from "../components/Footer.vue";
 import Sidebar from "../components/Sidebar.vue";
 import Card from "../components/Card.vue";
-import {mapGetters} from 'vuex';
-import {mapActions} from 'vuex';
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "SongsProfile",
@@ -34,41 +34,38 @@ export default {
     Card
   },
   computed: {
-    ...mapGetters([
-        'player',
-        'trackList'
-    ]),
+    ...mapGetters(["player", "trackList"])
   },
   methods: {
-    ...mapActions([
-      'setPlay',
-      'addTrack'
-    ]),
+    ...mapActions(["setPlay", "addTrack"]),
 
     async playMusic(track) {
       const play = ({
         spotify_uri,
         playerInstance: {
-          _options: {
-            getOAuthToken,
-            id
-          }
+          _options: { getOAuthToken, id }
         }
       }) => {
         getOAuthToken(access_token => {
-          this.api.search(access_token).put(`me/player/play?device_id=${id}`, JSON.stringify({ uris: [spotify_uri] }))
+          this.api
+            .search(access_token)
+            .put(
+              `me/player/play?device_id=${id}`,
+              JSON.stringify({ uris: [spotify_uri] })
+            )
             .then(() => {
               this.setPlay("stop");
               this.addTrack(track);
-            }).catch(() => {})
+            })
+            .catch(() => {});
         });
       };
 
       play({
         playerInstance: this.player,
-        spotify_uri: track.uri,
+        spotify_uri: track.uri
       });
-    }, 
+    }
   }
 };
 </script>
@@ -79,8 +76,8 @@ export default {
   margin-top: 5px;
   margin-bottom: 100px;
 }
-.itemsContainer h1, h2{
+.itemsContainer h1,
+h2 {
   color: white;
 }
-
 </style>

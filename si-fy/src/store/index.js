@@ -1,21 +1,36 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Api from "../service/api";
+
+const api = new Api();
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   strict: true,
   state: {
-    player: '',
-    track: '',
+    player: "",
+    track: "",
     trackList: [],
-    play: 'play_arrow'
+    play: "play_arrow",
+    userId: "",
   },
   getters: {
-    player: (state) => {return state.player;},
-    track: (state) => {return state.track;},
-    trackList: (state) => {return state.trackList},
-    play: (state) => {return state.play;}
+    player: (state) => {
+      return state.player;
+    },
+    track: (state) => {
+      return state.track;
+    },
+    trackList: (state) => {
+      return state.trackList;
+    },
+    play: (state) => {
+      return state.play;
+    },
+    getUserId: (state) => {
+      return state.userId;
+    },
   },
   mutations: {
     addPlayer(state, player) {
@@ -41,27 +56,56 @@ export default new Vuex.Store({
     setPlay(state, play) {
       state.play = play;
     },
+    setUserId(state, id) {
+      state.userId = id;
+    },
   },
   actions: {
     addPlayer: (context, player) => {
-        setTimeout(function() {
-            context.commit('addPlayer', player);
-        }, 500);
+      setTimeout(function() {
+        context.commit("addPlayer", player);
+      }, 500);
     },
     addTrack: (context, track) => {
-      context.commit('addTrack', track);
+      context.commit("addTrack", track);
     },
     setVolume: (context, volume) => {
-      context.commit('setVolume', volume);
+      context.commit("setVolume", volume);
     },
     pushTrackList: (context, track) => {
-      context.commit('pushTrackList', track);
+      context.commit("pushTrackList", track);
     },
     removeTrackList: (context, track) => {
-      context.commit('removeTrackList', track);
+      context.commit("removeTrackList", track);
     },
     setPlay: (context, play) => {
-          context.commit('setPlay', play);
+      context.commit("setPlay", play);
     },
-  }
+    setUserId: async (context) => {
+      const token = (await api.getToken(localStorage.refresh_token)).data
+        .access_token;
+
+      const id = (await api.search(token).get("/me")).data.id;
+
+      context.commit("setUserId", id);
+    },
+    createPlaylist: async (context, playlist) => {
+      const token = (await api.getToken(localStorage.refresh_token)).data
+        .access_token;
+
+      await api.postPlaylist(token, this.getters.getUserId, playlist);
+    },
+    editPlaylist: async (context, playlist) => {
+      const token = (await api.getToken(localStorage.refresh_token)).data
+        .access_token;
+
+      const { id, name } = playlist;
+
+      const newPlaylist = {
+        name,
+      };
+
+      await api.editPlaylist(token, id, newPlaylist);
+    },
+  },
 });

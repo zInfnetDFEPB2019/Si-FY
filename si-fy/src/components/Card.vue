@@ -2,7 +2,10 @@
   <v-container fluid>
     <v-card class="cardItem" color="#4E4E4E" outlined tile>
       <v-img height="90%" width="100%" :src="image"></v-img>
-      <v-card-subtitle class="headline grey--text text--lighten-2 cardTitle" v-text="title" />
+      <v-card-subtitle
+        class="headline grey--text text--lighten-2 cardTitle"
+        v-text="title"
+      />
     </v-card>
   </v-container>
 </template>

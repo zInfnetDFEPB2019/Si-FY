@@ -7,8 +7,10 @@
     color="#404040"
     padless
   >
-    <v-img class="imageTile"
-      src="https://www.resultatec.com.br/wp-content/uploads/2019/10/Fundo-Verde-1140x682@2x.png">
+    <v-img
+      class="imageTile"
+      src="https://www.resultatec.com.br/wp-content/uploads/2019/10/Fundo-Verde-1140x682@2x.png"
+    >
       <h1 class="title">Si-FY Project</h1>
     </v-img>
 
@@ -18,12 +20,8 @@
       <v-list-item link v-for="item in list_items" :key="item">
         <router-link class="router" :to="item.to">
           <div>
-            <v-icon>
-              {{ item.icon }}
-            </v-icon>
-            <span class="routerName">
-              {{ item.text }}
-            </span>
+            <v-icon>{{ item.icon }}</v-icon>
+            <span class="routerName">{{ item.text }}</span>
           </div>
         </router-link>
       </v-list-item>
@@ -36,7 +34,8 @@ export default {
   data() {
     return {
       list_items: [
-        { icon: "home", text: "Home", to:"/" },
+        { icon: "home", text: "Home", to: "/" },
+        { icon: "music_note", text: "Playlists", to: "/playlists" },
         { icon: "music_note", text: "Songs", to: "/songsprofile" },
         { icon: "logout", text: "Logout", to: "/logout" }
       ]
@@ -47,22 +46,22 @@ export default {
 </script>
 
 <style scoped>
-.imageTile{
+.imageTile {
   height: 250px;
 }
 
-.title{
+.title {
   color: white;
   margin: 16px;
   margin-top: 215px;
 }
 
-.router{
+.router {
   color: white;
   text-decoration: none;
 }
 
-.routerName{
+.routerName {
   margin: 10px;
   margin-top: 1px;
 }
