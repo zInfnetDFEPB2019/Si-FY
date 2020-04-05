@@ -4,7 +4,9 @@
 
     <div class="itemsContainer">
       <router-view></router-view>
-      <v-btn class="btnLogin" v-on:click="editPlaylist">Edit Playlist</v-btn>
+      <div v-if="isUserPlaylist">
+        <v-btn class="btnLogin" v-on:click="editPlaylist">Edit Playlist</v-btn>
+      </div>
       <h1 v-if="tracks.length == 0" class="divTitle headline grey--text text--lighten-2">Carregando</h1>
       <v-row>
         <v-col cols="3" v-for="playlist in tracks" :key="playlist.id">
@@ -42,7 +44,8 @@ export default {
       api: new Api(),
       nextPage: `playlists/${this.$route.params.id}`,
       scrolledToBottom: true,
-      isLoadingMore: null
+      isLoadingMore: null,
+      isUserPlaylist: false
     };
   },
   mounted() {
@@ -54,6 +57,8 @@ export default {
 
     this.getToken();
     this.scrollY();
+
+    this.checkPlaylistFromUser();
   },
   computed: {
     ...mapGetters(["player"])
@@ -144,6 +149,20 @@ export default {
       this.$router.push({
         name: "EditPlaylist"
       });
+    },
+
+    async checkPlaylistFromUser() {
+      const token = (await this.api.getToken(localStorage.refresh_token)).data
+        .access_token;
+
+      const playlists = (await this.api.search(token).get("/me/playlists")).data
+        .items;
+
+      const playlistId = this.$route.params.id;
+
+      return playlists.some(
+        playlist => (this.isUserPlaylist = playlist.id === playlistId)
+      );
     }
   }
 };
@@ -152,5 +171,9 @@ export default {
 <style scoped>
 .itemsContainer {
   margin-left: 250px;
+}
+
+button {
+  margin: 1rem 0;
 }
 </style>

@@ -60,6 +60,7 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-left: 250px;
+  margin: 1rem;
 }
 
 form {

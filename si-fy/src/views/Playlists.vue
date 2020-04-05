@@ -69,4 +69,8 @@ export default {
 .itemsContainer {
   margin-left: 250px;
 }
+
+button {
+  margin: 1rem 0;
+}
 </style>

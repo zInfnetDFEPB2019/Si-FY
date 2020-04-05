@@ -28,7 +28,9 @@ export default new Vuex.Store({
     play: (state) => {
       return state.play;
     },
-    getUserId: (state) => state.userId,
+    getUserId: (state) => {
+      return state.userId;
+    },
   },
   mutations: {
     addPlayer(state, player) {
@@ -79,7 +81,7 @@ export default new Vuex.Store({
     setPlay: (context, play) => {
       context.commit("setPlay", play);
     },
-    async setUserId(context) {
+    setUserId: async (context) => {
       const token = (await api.getToken(localStorage.refresh_token)).data
         .access_token;
 
@@ -87,13 +89,13 @@ export default new Vuex.Store({
 
       context.commit("setUserId", id);
     },
-    async createPlaylist(context, playlist) {
+    createPlaylist: async (context, playlist) => {
       const token = (await api.getToken(localStorage.refresh_token)).data
         .access_token;
 
       await api.postPlaylist(token, this.getters.getUserId, playlist);
     },
-    async editPlaylist(context, playlist) {
+    editPlaylist: async (context, playlist) => {
       const token = (await api.getToken(localStorage.refresh_token)).data
         .access_token;
 
