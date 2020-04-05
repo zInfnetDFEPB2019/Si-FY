@@ -3,8 +3,8 @@
     <Sidebar />
 
     <div class="itemsContainer">
+      <router-view></router-view>
       <v-btn class="btnLogin" v-on:click="editPlaylist">Edit Playlist</v-btn>
-      <v-btn class="btnLogin" v-on:click="deletePlaylist">Delete Playlist</v-btn>
       <h1 v-if="tracks.length == 0" class="divTitle headline grey--text text--lighten-2">Carregando</h1>
       <v-row>
         <v-col cols="3" v-for="playlist in tracks" :key="playlist.id">
@@ -25,8 +25,7 @@ import Footer from "../components/Footer.vue";
 import Sidebar from "../components/Sidebar.vue";
 import Card from "../components/Card.vue";
 import Api from "../service/api";
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Tracks",
@@ -60,7 +59,7 @@ export default {
     ...mapGetters(["player"])
   },
   methods: {
-    ...mapActions(["addTrack", "setPlay", "editPlaylist", "deletePlaylist"]),
+    ...mapActions(["addTrack", "setPlay"]),
 
     getToken() {
       if (this.nextPage != null || this.nextPage != undefined) {
@@ -141,10 +140,10 @@ export default {
       });
     },
 
-    editPlaylist() {},
-
-    deletePlaylist() {
-      this.deletePlaylist(this.$route.params.id);
+    editPlaylist() {
+      this.$router.push({
+        name: "EditPlaylist"
+      });
     }
   }
 };

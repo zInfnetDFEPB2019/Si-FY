@@ -32,7 +32,7 @@ class Api {
     };
     this.postPlaylist = async function(token, user_id, playlist) {
       await axios.post(
-        `https://api.spotify.com/v1/users/${user_id}/playlists`,
+        `https://api.spotify.com/v1/users/${user_id}/`,
         playlist,
         {
           headers: {
@@ -43,10 +43,18 @@ class Api {
         }
       );
     };
-    // this.putPlaylist = async function(token, playlist) {};
-    this.deletePlaylist = async function(token, playlistId) {
-      console.log(token);
-      console.log(playlistId);
+    this.editPlaylist = async function(token, playlistId, newPlaylist) {
+      await axios.put(
+        `https://api.spotify.com/v1/playlists/${playlistId}/`,
+        newPlaylist,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     };
   }
 }

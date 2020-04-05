@@ -1,44 +1,50 @@
 <template>
-  <div class="itemsContainer">
+  <div class="editContainer">
     <Sidebar />
-    <form v-on:submit.prevent="addPlaylist">
+    <form v-on:submit.prevent="updatePlaylist">
       <div class="formContainer">
         <div class="formItem">
-          <h2>Playlist Name:</h2>
-          <input type="text" class="input" v-model="playlist.name" placeholder="Playlist name" />
+          <h2>New Playlist Name:</h2>
+          <input type="text" class="input" v-model="playlist.name" placeholder="New Playlist name" />
         </div>
         <div class="formItem">
-          <v-btn class="btnLogin" type="submit">Create Playlist</v-btn>
+          <v-btn class="btnLogin" type="submit">Edit Playlist</v-btn>
         </div>
       </div>
     </form>
-    <v-btn class="btnLogin" v-on:click="goToPlaylists()">Return to Playlists</v-btn>
+    <v-btn class="btnLogin">
+      <router-link
+        tag="track"
+        :to="{name: 'Track', params: {id: this.playlist.id}}"
+      >Return to Playlist</router-link>
+    </v-btn>
     <Footer />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
 
 export default {
-  name: "CreatePlaylist",
+  name: "EditPlaylist",
   data() {
     return {
       playlist: {
+        id: this.$route.params.id,
         name: ""
       }
     };
   },
   methods: {
-    ...mapActions(["createPlaylist"]),
-    addPlaylist() {
-      this.createPlaylist(this.playlist);
-      this.$router.push({ name: "Playlists" });
-    },
-    goToPlaylists() {
-      this.$router.push({ name: "Playlists" });
+    ...mapActions(["editPlaylist"]),
+    updatePlaylist() {
+      this.editPlaylist(this.playlist);
+      this.$router.push({
+        name: "Track",
+        params: { id: this.$route.params.id }
+      });
     }
   },
   components: {
@@ -49,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.itemsContainer {
+.editContainer {
   display: flex;
   flex-direction: column;
   align-items: center;

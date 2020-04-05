@@ -93,12 +93,17 @@ export default new Vuex.Store({
 
       await api.postPlaylist(token, this.getters.getUserId, playlist);
     },
-    // async editPlaylist(context, playlist) {},
-    async deletePlaylist(context, playlistId) {
+    async editPlaylist(context, playlist) {
       const token = (await api.getToken(localStorage.refresh_token)).data
         .access_token;
 
-      await api.deletePlaylist(token, playlistId);
+      const { id, name } = playlist;
+
+      const newPlaylist = {
+        name,
+      };
+
+      await api.editPlaylist(token, id, newPlaylist);
     },
   },
 });

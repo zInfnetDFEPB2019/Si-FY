@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Callback from "../views/Callback.vue";
 import CreatePlaylist from "../views/CreatePlaylist.vue";
+import EditPlaylist from "../views/EditPlaylist.vue";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
@@ -52,6 +53,13 @@ const routes = [
     path: "/track/:id",
     name: "Track",
     component: Track,
+    children: [
+      {
+        path: "edit",
+        name: "EditPlaylist",
+        component: EditPlaylist,
+      },
+    ],
   },
   {
     path: "/songsprofile",
