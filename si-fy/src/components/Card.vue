@@ -1,8 +1,11 @@
 <template>
   <v-container fluid>
-    <v-card id="card-item" color="#4E4E4E" outlined tile>
+    <v-card class="cardItem" color="#4E4E4E" outlined tile>
       <v-img height="90%" width="100%" :src="image"></v-img>
-      <v-card-subtitle id="card-title" class="headline grey--text text--lighten-2" v-text="title" />
+      <v-card-subtitle
+        class="headline grey--text text--lighten-2 cardTitle"
+        v-text="title"
+      />
     </v-card>
   </v-container>
 </template>
@@ -14,12 +17,11 @@ export default {
 </script>
 
 <style scoped>
-#card-item {
-  height: 210px;
+.cardItem {
   width: 200px;
 }
 
-#card-title {
+.cardTitle {
   margin: 0px;
   padding: 0px;
   text-align: center;

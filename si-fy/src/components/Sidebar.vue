@@ -7,25 +7,23 @@
     color="#404040"
     padless
   >
-    <v-img src="https://randomuser.me/api/portraits/women/85.jpg">
-      <v-list>
-        <v-list-item link>
-          <v-list-item-content>
-            <v-list-item-title class="title">Sandra Adams</v-list-item-title>
-            <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+    <v-img
+      class="imageTile"
+      src="https://www.resultatec.com.br/wp-content/uploads/2019/10/Fundo-Verde-1140x682@2x.png"
+    >
+      <h1 class="title">Si-FY Project</h1>
     </v-img>
 
     <v-divider></v-divider>
 
     <v-list nav dense>
       <v-list-item link v-for="item in list_items" :key="item">
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>{{ item.text }}</v-list-item-title>
+        <router-link class="router" :to="item.to">
+          <div>
+            <v-icon>{{ item.icon }}</v-icon>
+            <span class="routerName">{{ item.text }}</span>
+          </div>
+        </router-link>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -36,12 +34,10 @@ export default {
   data() {
     return {
       list_items: [
-        { icon: "music_note", text: "Songs" },
-        { icon: "music_note", text: "Playlists" },
-        { icon: "music_note", text: "Artists" },
-        { icon: "music_note", text: "Albums" },
-        { icon: "music_note", text: "Podcasts" },
-        { icon: "logout", text: "Logout" }
+        { icon: "home", text: "Home", to: "/" },
+        { icon: "music_note", text: "Playlists", to: "/playlists" },
+        { icon: "music_note", text: "Songs", to: "/songsprofile" },
+        { icon: "logout", text: "Logout", to: "/logout" }
       ]
     };
   },
@@ -49,4 +45,24 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.imageTile {
+  height: 250px;
+}
+
+.title {
+  color: white;
+  margin: 16px;
+  margin-top: 215px;
+}
+
+.router {
+  color: white;
+  text-decoration: none;
+}
+
+.routerName {
+  margin: 10px;
+  margin-top: 1px;
+}
+</style>

@@ -5,8 +5,9 @@
 <p>PO - Bruno Feijó.</p>
 <br>
 
-<p>O projeto consiste em utilizar uma API  que retornará dados de músicas, artistas, bandas, álbuns, etc.</p>
+<p>O projeto consiste em utilizar a API do Spotify que retornará dados de músicas, artistas, bandas, álbuns, etc.</p>
 <p>Com isso, a ideia é criar um front-end agradável ao usuário, utilizando como base, a UI do Spotify, SoundCloud e Youtube Music.</p>
+<p>Para rodar qualquer música, necessário um perfil premium do Spotify</p>
 
 
 ## Visual Guideline
